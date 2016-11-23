@@ -1,0 +1,18 @@
+#!/bin/sh
+
+/usr/pgsql-9.6/bin/postgresql96-setup initdb
+
+datadir=/var/lib/pgsql/9.6/data
+configfile=$datadir/postgresql.conf
+backupdir=/data/dbbak/pgsql96
+archivedir=$backupdir/archive
+
+mkdir -p $archivedir
+chown postgres:postgres $archivedir
+
+cp $configfile ${configfile}.default
+
+sed -i -e"s@^#wal_level = minimal*@wal_level = replica@g" $configfile
+sed -i -e"s@^#archive_mode = off*@archive_mode  = on@g" $configfile
+sed -i -e"s@^#archive_command = ''*@archive_command = 'test ! -f $archivedir/%f \&\& cp %p $archivedir/%f'@g" $configfile
+sed -i -e"s@^#archive_timeout = 0*@archive_timeout = 14400"@g $configfile

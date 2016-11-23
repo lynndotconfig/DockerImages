@@ -1,0 +1,9 @@
+#!/bin/bsh
+
+db_user=db_username
+db_pass=db_password
+db_name=db_database
+
+su postgres -c "createuser $db_user"
+su postgres -c "createdb -O $db_user $db_name"
+su postgres -c "psql --command 'ALTER USER $db_user WITH PASSWORD '\''$db_pass'\'';'"
