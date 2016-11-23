@@ -1,0 +1,2 @@
+su postgres -c "dropdb db_database"
+su postgres -c "dropuser db_username"
