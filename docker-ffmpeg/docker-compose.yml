@@ -1,0 +1,8 @@
+version: '2'
+services:
+  ffmpeg:
+    privileged: true
+    image: wlp/ffmpeg
+    tty: true
+    volumes:
+     - ./video:/data/video
