@@ -1,0 +1,7 @@
+#/bin/sh
+
+username=`whoami`
+aio=`whoami`aio
+userid=`id -u`
+dcfile=$HOME/data/$aio/docker-compose.yml
+docker-compose -f $dcfile $@
